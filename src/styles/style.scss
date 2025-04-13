@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  font-family: "Open Sals", sans-serif;
+  background: url("../../assets/car-finder-bg.jpg");
+  background-repeat: no-repeat center center/cover;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 3rem;
+  min-height: 100vh;
+  color: #fff;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+p {
+  color: #d3d3d3;
+  margin-bottom: 2rem;
+}
+
+.form-panel {
+  background-color: #f2f2f2;
+  padding: 2rem;
+  border-radius: 10px;
+  display: flex;
+  gap: 2rem;
+  max-width: 900px;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #348fbc;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+select:disabled {
+  background-color: #909090;
+  color: #fff;
+}
