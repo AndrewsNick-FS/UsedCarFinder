@@ -1,13 +1,10 @@
 // Imports your SCSS stylesheet
-import "./styles/index.scss";
+import "./styles/style.scss";
 import data from "./car-dataset.json";
 
 const carData = new Array(data); // golbal variables/arrays
 const disableMake = document.querySelector("#make");
 const disableModel = document.querySelector("#model");
-
-console.log(carData, "Car Data");
-console.log(carData[0].length, "Car Data");
 
 class Main {
   constructor() {
@@ -32,14 +29,6 @@ class Main {
 
   init() {
     this.setInit = true;
-    console.log("Application Successfully Started:", this.setInit);
-
-    const exitDevMode = document.querySelector("#exit-dev-mode");
-    const exitDevViewer = document.querySelector("#results-section");
-    exitDevMode.addEventListener("click", () => {
-      exitDevMode.style.display = "none";
-      exitDevViewer.style.display = "none";
-    });
 
     this.getYears();
   }
@@ -47,15 +36,11 @@ class Main {
   buildDom() {
     //building dom elements for JSON data
     if (this.setState === 0) {
-      console.log("DOM >>> Years Appended");
-      console.log("Dropdown Years Total:", this.yearArray.length);
       this.yearArray.forEach((year) => {
         //loop through array
         let option = document.createElement("option");
         option.textContent = year;
         option.setAttribute("value", year);
-
-        console.log(option);
 
         const findYearDropDown = document.querySelector("#year");
         findYearDropDown
@@ -63,37 +48,29 @@ class Main {
           : console.error("Element not found");
       });
     } else if (this.setState === 1) {
-      console.log("DOM >>> Make Appended");
-
       disableMake.disabled = false;
       disableMake.style.cursor = "pointer";
 
-      console.log("Dropdown Make Total:", this.makeArray.length);
       this.makeArray.forEach((make) => {
         //loop through array for data
         let option = document.createElement("option");
         option.textContent = make;
         option.setAttribute("value", make);
 
-        console.log(option);
         const findMakeDropDown = document.querySelector("#make");
         findMakeDropDown
           ? findMakeDropDown.append(option)
           : console.error("Element not found");
       });
     } else if (this.setState == 2) {
-      console.log("DOM >>> Model Appended");
-
       disableModel.disabled = false;
       disableModel.style.cursor = "pointer";
 
-      console.log("Dropdown Models Total:", this.modelArray.length);
       this.modelArray.forEach((model) => {
         let option = document.createElement("option");
         option.textContent = model;
         option.setAttribute("value", model);
 
-        console.log(option);
         const findModelDropDown = document.querySelector("#model");
         findModelDropDown
           ? findModelDropDown.append(option)
@@ -103,14 +80,10 @@ class Main {
   }
 
   getYears() {
-    console.log("Fetch Years");
-
     const findYearDropDown = document.querySelector("#year");
     const findMakeDropDown = document.querySelector("#make");
     findYearDropDown.addEventListener("change", (e) => {
       this.getYearInput = e.target.value;
-      console.log("Year Input Stored", this.getYearInput);
-
       this.setState = 1;
       if (this.setState === 1) {
         findMakeDropDown.innerHTML =
@@ -136,19 +109,14 @@ class Main {
 
     // store the years into an instance array
     this.yearArray = filterYears;
-    console.log(this.yearArray, "Years Ready for Use!");
-
     this.buildDom();
   }
 
-  getMakesA() {
-    console.log("Fetch Makes");
-
+  getMakes() {
     const findMakeDropDown = document.querySelector("#make");
     const findModelDropDown = document.querySelector("#model");
     findMakeDropDown.addEventListener("change", (e) => {
       this.getMakeInput = e.target.value;
-      console.log("Make Input Stored:", this.getMakeInput);
 
       this.setState = 2;
       if (this.setState === 2) {
@@ -177,22 +145,18 @@ class Main {
     const noRepeatMakes = [...new Set(storeMakes)];
 
     this.makeArray = noRepeatMakes;
-    console.log(this.makeArray, "Makes Ready for Use!");
 
     this.buildDom();
   }
 
   getModels() {
-    console.log("Fetch Models");
-
     const findModelDropDown = document.querySelector("#model");
     findModelDropDown.addEventListener("change", (e) => {
       this.getModelInput = e.target.value;
-      console.log("Model Input Stored:", this.getModelInput);
 
       this.setState = 3;
       if (this.setState === 3) {
-        const car = new CaretPosition(
+        const car = new Car(
           this.getYearInput,
           this.getMakeInput,
           this.getModelInput
@@ -225,7 +189,6 @@ class Main {
     const noRepeatModels = [...new Set(storeModels)];
 
     this.modelArray = noRepeatModels;
-    console.log(this.modelArray, "Models Ready for Use");
 
     this.buildDom();
   }
@@ -274,25 +237,7 @@ class Car extends Model {
     this.finalArray = filterFinalByModel;
     let length = this.finalArray.length;
 
-    this.displayList();
-  }
-
-  displayList() {
-    console.log("Results", this.finalArray);
-    const list = document.querySelector("#list-results");
-    list.innerHTML = "<li><h3>Results Listed Here - Dev Mode<h3></li>";
-
-    this.finalArray.map((item) => {
-      //use data array
-      let li = document.createElement("li");
-      li.textContent = `Price: $${item.price}    | Transmission: ${item.transmission}    | Mileage: ${item.mileage}`;
-
-      list ? list.append(li) : console.error("Element Not Found");
-    });
-
-    console.log(
-      `You searched for a ${this.year} ${this.make}, ${this.model}. Excellent!`
-    );
+    console.log(this.finalArray);
   }
 }
 
